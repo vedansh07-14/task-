@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DE Contest 3 — Task & Performance Tracker</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">DE</div>
+        <div><strong>Contest 3</strong><span>Preparation workspace</span></div>
+      </div>
+      <nav aria-label="Main navigation">
+        <a class="nav-link active" href="#overview">▦ <span>Overview</span></a>
+        <a class="nav-link" href="#syllabus">☑ <span>Syllabus tasks</span></a>
+        <a class="nav-link" href="#performance">↗ <span>Performance</span></a>
+        <a class="nav-link" href="#review">✎ <span>Revision notes</span></a>
+      </nav>
+      <div class="sidebar-note">
+        <span class="eyebrow">THE GAME PLAN</span>
+        <p>Learn it. Practise it. Recall it without help.</p>
+        <div class="mini-progress"><span id="sidebarProgress"></span></div>
+        <small id="sidebarProgressText">0% complete</small>
+      </div>
+      <div class="sidebar-footer">Built for focused prep <span>✦</span></div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">DATABASE ENGINEERING</p>
+          <h1>DE Contest 3 Tracker</h1>
+          <p class="subtitle">Your syllabus, practice, and performance — all in one place.</p>
+        </div>
+        <div class="top-actions">
+          <button class="button button-ghost" id="exportBtn">Export progress</button>
+          <button class="button button-dark" id="resetBtn">Reset tracker</button>
+        </div>
+      </header>
+
+      <section class="hero" id="overview">
+        <div class="hero-copy">
+          <span class="pill"><span class="live-dot"></span> YOUR PREP DASHBOARD</span>
+          <h2>Small wins.<br /><em>Strong fundamentals.</em></h2>
+          <p>Tick off topics as you master them. Log practice sessions to see what’s working and what needs another round.</p>
+          <a class="hero-link" href="#syllabus">Continue your syllabus <span>↘</span></a>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+          <div class="art-card card-back"><span>SELECT *</span><i>•••</i><div class="code-line long"></div><div class="code-line short"></div><div class="code-line mid"></div></div>
+          <div class="art-card card-front"><span class="tiny-label">PROGRESS SNAPSHOT</span><div class="art-number" id="heroPercent">0%</div><div class="art-bar"><span id="heroBar"></span></div><div class="art-foot"><span>Topics mastered</span><b id="heroTopics">0 / 0</b></div></div>
+          <div class="float-chip chip-top">⌘ SQL</div><div class="float-chip chip-bottom">✓ One step at a time</div>
+        </div>
+      </section>
+
+      <section class="stats-grid" aria-label="Progress summary">
+        <article class="stat-card"><div class="stat-top"><span>Topics completed</span><span class="stat-icon green">✓</span></div><strong id="completedCount">0 <small>/ 0</small></strong><div class="stat-bottom"><span class="status-dot green-dot"></span> Keep building momentum</div></article>
+        <article class="stat-card"><div class="stat-top"><span>Lectures completed</span><span class="stat-icon violet">▤</span></div><strong id="lectureCount">0 <small>/ 12</small></strong><div class="stat-bottom">A lecture completes when all its topics are checked.</div></article>
+        <article class="stat-card"><div class="stat-top"><span>Practice questions</span><span class="stat-icon orange">↗</span></div><strong id="questionCount">0</strong><div class="stat-bottom">Questions logged in your sessions</div></article>
+        <article class="stat-card"><div class="stat-top"><span>Average accuracy</span><span class="stat-icon blue">◎</span></div><strong id="accuracyCount">—<small>%</small></strong><div class="stat-bottom">Correct answers ÷ attempted questions</div></article>
+      </section>
+
+      <section class="content-grid">
+        <div class="panel syllabus-panel" id="syllabus">
+          <div class="panel-heading">
+            <div><p class="eyebrow">YOUR CHECKLIST</p><h2>Syllabus tasks</h2><p class="panel-subtitle">Mark a topic only when you can explain it or solve a question independently.</p></div>
+            <div class="filter-wrap"><label class="sr-only" for="lectureFilter">Filter lectures</label><select id="lectureFilter"><option value="all">All lectures</option></select></div>
+          </div>
+          <div class="overall-progress">
+            <div><span>Overall completion</span><strong id="overallPercent">0%</strong></div>
+            <div class="progress-track"><span id="overallBar"></span></div>
+          </div>
+          <div id="lectureList" class="lecture-list"></div>
+        </div>
+
+        <aside class="right-column">
+          <section class="panel session-panel" id="performance">
+            <div class="panel-heading compact"><div><p class="eyebrow">BUILD THE HABIT</p><h2>Log a study session</h2></div><span class="panel-emoji">✦</span></div>
+            <form id="sessionForm">
+              <label>Session focus<select id="sessionFocus" required></select></label>
+              <div class="form-row"><label>Minutes studied<input id="sessionMinutes" type="number" min="1" max="1440" placeholder="45" required /></label><label>Questions attempted<input id="sessionAttempted" type="number" min="0" placeholder="10" required /></label></div>
+              <div class="form-row"><label>Correct answers<input id="sessionCorrect" type="number" min="0" placeholder="8" required /></label><label>Confidence<select id="sessionConfidence"><option value="1">1 — Low</option><option value="2">2 — Getting there</option><option value="3" selected>3 — Okay</option><option value="4">4 — Confident</option><option value="5">5 — Exam ready</option></select></label></div>
+              <label>Quick reflection <textarea id="sessionNotes" rows="2" placeholder="What clicked? What needs another look?"></textarea></label>
+              <button class="button button-accent full-width" type="submit">+ Save session</button>
+              <p class="form-message" id="formMessage" role="status"></p>
+            </form>
+          </section>
+
+          <section class="panel performance-panel">
+            <div class="panel-heading compact"><div><p class="eyebrow">YOUR MOMENTUM</p><h2>Performance</h2></div><span class="trend-icon">↗</span></div>
+            <div class="performance-metrics"><div><span>Total study time</span><strong id="totalMinutes">0 <small>min</small></strong></div><div><span>Sessions logged</span><strong id="sessionCount">0</strong></div></div>
+            <div class="accuracy-block"><div class="accuracy-label"><span>Overall accuracy</span><strong id="accuracyLabel">No data yet</strong></div><div class="progress-track"><span id="accuracyBar"></span></div></div>
+            <div class="confidence-block"><div class="accuracy-label"><span>Average confidence</span><strong id="confidenceLabel">— / 5</strong></div><div class="confidence-dots" id="confidenceDots"><i></i><i></i><i></i><i></i><i></i></div></div>
+            <p class="insight" id="performanceInsight">Log your first study session to unlock your performance snapshot.</p>
+          </section>
+        </aside>
+      </section>
+
+      <section class="panel review-panel" id="review">
+        <div class="panel-heading compact"><div><p class="eyebrow">DON’T MAKE THE SAME MISTAKE TWICE</p><h2>Recent study sessions</h2><p class="panel-subtitle">Your logs stay in this browser, so you can come back and keep going.</p></div></div>
+        <div id="sessionHistory" class="session-history"><div class="empty-state">No sessions yet. Log one above after your next study block.</div></div>
+      </section>
+      <footer class="page-footer"><span>DE Contest 3 · Prep tracker</span><span>Progress saves automatically in this browser.</span></footer>
+    </main>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
